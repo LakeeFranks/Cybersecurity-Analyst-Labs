@@ -25,9 +25,9 @@ Configure Splunk Enterprise to collect Windows Security Event Logs and confirm s
 
 ## Validation Steps
 The following Splunk searches were used to confirm log ingestion and visibiltiy: 
-index=wineventlog
-index=wineventlog EventCode=4624
-index=wineventlog EventCode 4625
+- index=wineventlog
+- index=wineventlog EventCode=4624
+- index=wineventlog EventCode 4625
 
 ---
 

@@ -24,10 +24,10 @@ Configure Splunk Enterprise to collect Windows Security Event Logs and confirm s
 ---
 
 ## Validation Steps
-The following Splunk searches were used to confirm log ingestion and visibiltiy: 
+The following Splunk searches were used to confirm log ingestion and visibility:
 - index=wineventlog
 - index=wineventlog EventCode=4624
-- index=wineventlog EventCode 4625
+- index=wineventlog EventCode=4625
 
 ---
 
@@ -49,9 +49,19 @@ Windows authentication logs are a primary source for SOC analysts and are used t
 ## Current Status
 Windows Security log ingestion is complete and functioning as expected.
 
---- 
+---
 
-## Next Steps
-- Generate failed login activity
-- Analyze authentication patterns
-- Identify suspicious logins
+## Authentication Failure Analysis (Event ID 4625)
+
+### Purpose
+Failed authentication events are commonly reviewed by SOC analysts to identify potential brute-force attempts, misconfigured accounts, or unauthorized access attempts.
+
+### Splunk Search Used
+The following search was used to analyze failed login activity:
+- index=wineventlog EventCode=4625
+
+### Observations
+Multiple failed login events were observed, each containing timestamps, usernames, and logon-related metadata. In some cases, failed login attempts occurred close together in time for the same user account.
+
+### Interpretation
+Occasional failed login attempts may result from user error, such as mistyped credentials. However, repeated authentication failures within short timeframes could indicate suspicious behavior or brute-force attempts. In a production environment, this activity would warrant further investigation, correlation with source IP addresses, and review of account behavior over time.
